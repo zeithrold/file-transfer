@@ -15,6 +15,9 @@ export class File extends BaseEntity {
   size_megabytes?: number
 
   @Column('date')
+  created_at?: Date
+
+  @Column('date')
   uploaded_at?: Date
 
   @Column()

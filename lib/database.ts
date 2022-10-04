@@ -1,13 +1,7 @@
 import { DataSource, DataSourceOptions } from "typeorm";
 
-const DEV_DATASOURCE_OPTIONS: DataSourceOptions = {
-  type: 'mysql',
-  host: 'localhost',
-  username: 'root',
-  database: 'file_transfer'
-}
 
-const PROD_DATASOURCE_OPTIONS: DataSourceOptions = {
+const DATASOURCE_OPTIONS: DataSourceOptions = {
   type: 'mysql',
   host: process.env.ZEITHROLD_MYSQL_HOST,
   username: process.env.ZEITHROLD_MYSQL_USERNAME,
@@ -17,6 +11,6 @@ const PROD_DATASOURCE_OPTIONS: DataSourceOptions = {
 }
 
 export const AppDataSource = new DataSource(
-  process.env.MODE === 'dev' ? DEV_DATASOURCE_OPTIONS : PROD_DATASOURCE_OPTIONS
+  DATASOURCE_OPTIONS
 )
 
