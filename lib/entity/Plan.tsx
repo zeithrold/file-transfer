@@ -1,16 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Plan extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id?: number
+  id?: number;
 
   @Column('uuid')
-  openid?: string
+  openid?: string;
 
   @Column()
-  plan_id?: string
+  plan_id?: string;
 
   @Column('timestamp with local time zone')
-  expire_at?: Date
+  expire_at?: Date;
 }

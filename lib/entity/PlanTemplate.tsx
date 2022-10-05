@@ -1,19 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class PlanTemplate extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id?: number
+  id?: number;
 
   @Column()
-  plan_id?: string
+  plan_id?: string;
 
   @Column()
-  datapoints?: number
+  datapoints?: number;
 
   @Column()
-  name?: string
+  name?: string;
 
   @Column()
-  description?: string
+  description?: string;
 }

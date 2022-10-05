@@ -1,45 +1,45 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class File extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id?: number
+  id?: number;
 
   @Column('uuid')
-  openid?: string
+  openid?: string;
 
   /**
    * Count as Megabytes.
    */
   @Column()
-  size_megabytes?: number
+  size_megabytes?: number;
 
   @Column('date')
-  created_at?: Date
+  created_at?: Date;
 
   @Column('date')
-  uploaded_at?: Date
+  uploaded_at?: Date;
 
   @Column()
-  filename?: string
+  filename?: string;
 
   /**
    * Count as seconds.
    */
   @Column()
-  storage_duration_seconds?: number
+  storage_duration_seconds?: number;
 
   @Column()
-  hash?: string
+  hash?: string;
 
   @Column()
-  file_uuid?: string
+  file_uuid?: string;
 
   @Column()
-  status?: 'active' | 'deleted' | 'inactive'
+  status?: 'active' | 'deleted' | 'inactive';
 
   @Column({
-    length: 16
+    length: 16,
   })
-  code?: string
+  code?: string;
 }
