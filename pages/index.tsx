@@ -1,32 +1,16 @@
 import type { GetServerSideProps, NextPage } from 'next';
 
-import Head from 'next/head';
-import Image from 'next/image';
-import { getSession } from '@/lib/session';
-import { oidcClient } from '@/lib/auth';
+import DefaultPageLayout from '@/layouts/DefaultPageLayout';
+import PropsBase from '@/types/PropsBase';
+import { getUserInfo } from '@/lib/auth';
 
-interface HomeProps {
-  login?: boolean;
-  test?: string;
-  access_token?: string;
-  username?: string;
-}
+interface HomeProps extends PropsBase {}
 
-const Home: NextPage<HomeProps> = (props) => {
+const Home: NextPage<HomeProps> = ({ userinfo }) => {
   return (
-    <div>
-      <div>hello, world!, {props.test}</div>
-      <div>{props.login ? 'true' : 'false'}</div>
-      <a
-        href={`${
-          process.env.ZEITHROLD_ENDPOINT
-        }/api/v1/auth/login?redirect_uri=${encodeURIComponent(
-          process.env.ZEITHROLD_ENDPOINT!,
-        )}`}
-      >
-        Login
-      </a>
-    </div>
+    <DefaultPageLayout userinfo={userinfo}>
+      <div>hello, world!</div>
+    </DefaultPageLayout>
   );
 };
 
@@ -34,25 +18,12 @@ const getServerSideProps: GetServerSideProps<HomeProps> = async ({
   req,
   res,
 }) => {
-  const session = await getSession(req, res);
-  const login = session.login ? true : false;
-  let username: string;
-  if (login) {
-    if (!session.access_token) {
-      return {
-        redirect: {
-          destination: '/api/v1/auth/login?' + encodeURIComponent(req.url!),
-        },
-        props: {},
-      };
-    }
+  const userinfo = await getUserInfo(req, res);
+  const serverSideProps: any = { props: {} };
+  if (userinfo) {
+    serverSideProps.props.userinfo = userinfo;
   }
-  return {
-    props: {
-      login,
-      test: 'test',
-    },
-  };
+  return serverSideProps;
 };
 
 export default Home;

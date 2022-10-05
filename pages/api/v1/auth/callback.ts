@@ -38,8 +38,6 @@ export default async function handler(
   }
   const { code_verifier, state } = session;
   const params = oidcClient.callbackParams(req);
-  console.log({ stage: 'callback', code_verifier, code: params.code, state });
-
   let tokenSet: TokenSet;
   try {
     tokenSet = await oidcClient.callback(
@@ -61,9 +59,9 @@ export default async function handler(
     res,
     domain: ZEITHROLD_HOST,
     path: '/',
-    expires: new Date(tokenSet!.expires_at!),
+    httpOnly: true,
+    expires: new Date(tokenSet!.expires_at! * 1000),
   });
-  session.login = true;
   res.redirect(session.redirect_uri);
 }
 

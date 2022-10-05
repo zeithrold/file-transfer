@@ -1,4 +1,7 @@
+import 'reflect-metadata';
+
 import { DataSource, DataSourceOptions } from 'typeorm';
+import { File, Plan, User } from './entity';
 
 const DATASOURCE_OPTIONS: DataSourceOptions = {
   type: 'mysql',
@@ -9,7 +12,12 @@ const DATASOURCE_OPTIONS: DataSourceOptions = {
     ? parseInt(process.env.ZEITHROLD_MYSQL_PORT)
     : 3306,
   database: process.env.ZEITHROLD_MYSQL_DATABASE,
+  synchronize: true,
+  entities: [File, Plan, User],
+  logging: true,
 };
 
-let AppDataSource = new DataSource(DATASOURCE_OPTIONS);
+const AppDataSource = new DataSource(DATASOURCE_OPTIONS);
+await AppDataSource.initialize();
+
 export { AppDataSource };

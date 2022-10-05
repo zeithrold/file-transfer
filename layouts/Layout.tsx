@@ -1,6 +1,6 @@
-import React from 'react'
-import BetaHeaderBar from '../components/BetaHeaderBar'
-import CloudCommonHeader from '../components/CloudHeaderBar'
+import BetaHeaderBar from '@/components/BetaHeaderBar';
+import CloudCommonHeader from '@/components/CloudHeaderBar';
+import React from 'react';
 
 export default function Layout({ children }: { children: any }) {
   return (
@@ -9,5 +9,5 @@ export default function Layout({ children }: { children: any }) {
       <BetaHeaderBar />
       {children}
     </div>
-  )
+  );
 }

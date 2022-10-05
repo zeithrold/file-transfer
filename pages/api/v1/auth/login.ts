@@ -41,7 +41,7 @@ export default async function handler(
           expires: new Date(value.exp!),
         });
       })
-      .catch((reason) => {
+      .catch(() => {
         session.login = false;
       });
   }
@@ -52,12 +52,6 @@ export default async function handler(
   const state = generators.state();
   session.code_verifier = code_verifier;
   session.state = state;
-  console.log({
-    stage: 'authorization',
-    code_verifier,
-    code_challenge,
-    state,
-  });
 
   const authZUrl = oidcClient.authorizationUrl({
     scope: 'openid email profile',

@@ -1,9 +1,15 @@
-$globalFont: Airal, 'Microsoft YaHei', Tanoma, 'Heiti SC', Helvetica, 'Pingfang SC', sans-serif;
+$globalFont: Airal, 'Microsoft YaHei', Tanoma, 'Heiti SC', Helvetica,
+  'Pingfang SC', sans-serif;
+
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
 
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: $globalFont;
+  font-family: $globalFont;
+  margin: 0;
 }
