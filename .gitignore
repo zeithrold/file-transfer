@@ -33,8 +33,8 @@ test/tmp/**
 .nvmrc
 
 # examples
-examples/**/out
-examples/**/.env*.local
+out
+.env*.local
 
 pr-stats.md
 test-timings.json
