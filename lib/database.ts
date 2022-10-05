@@ -11,4 +11,5 @@ const DATASOURCE_OPTIONS: DataSourceOptions = {
   database: process.env.ZEITHROLD_MYSQL_DATABASE,
 };
 
-export const AppDataSource = new DataSource(DATASOURCE_OPTIONS);
+let AppDataSource = new DataSource(DATASOURCE_OPTIONS);
+export { AppDataSource };

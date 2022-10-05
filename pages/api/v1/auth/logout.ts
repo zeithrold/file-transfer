@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import cookies from 'cookies-next';
+import { deleteCookie } from 'cookies-next';
 import { getSession } from '../../../../lib/session';
 
 export default async function handler(
@@ -9,7 +9,7 @@ export default async function handler(
 ) {
   const session = await getSession(req, res);
   await session.destroy();
-  cookies.deleteCookie('_Z_ACCESS_TOKEN', { req, res });
+  deleteCookie('_Z_ACCESS_TOKEN', { req, res });
   res.redirect(process.env.ZEITHROLD_ENDPOINT!);
 }
 

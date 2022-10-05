@@ -1,15 +1,21 @@
 import AliyunSTS from '@alicloud/pop-core';
+import { logWithDate } from './logging';
 
-const stsClient = new AliyunSTS({
-  accessKeyId: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEYID!,
-  accessKeySecret: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEYSECRET!,
-  endpoint: 'https://sts.cn-beijing.aliyuncs.com',
-  apiVersion: '2015-04-01',
-});
+let stsClient: AliyunSTS;
 
 const STS_ROLE_ARN = 'acs:ram::1516286309654213:role/zsfiletransferrole';
 const OSS_RESOURCE_ROOT = 'acs:oss:*:1516286309654213:zeithrold-file-transfer/';
 type OSSAction = 'oss:GetObject' | 'oss:PutObject';
+
+export function init() {
+  logWithDate('Initializing Aliyun STS Library...');
+  stsClient = new AliyunSTS({
+    accessKeyId: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEYID!,
+    accessKeySecret: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEYSECRET!,
+    endpoint: 'https://sts.cn-beijing.aliyuncs.com',
+    apiVersion: '2015-04-01',
+  });
+}
 
 export interface StsRequestParam {
   RoleArn: string;
@@ -96,3 +102,5 @@ export async function requestForSTSToken({
     throw e;
   }
 }
+
+logWithDate('Initialized Aliyun STS Library');

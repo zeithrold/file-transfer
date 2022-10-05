@@ -1,21 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { isInitialized, oidcClient } from '@/lib/auth';
 
 import { ZEITHROLD_HOST } from '@/lib/constants';
-import cookies from 'cookies-next';
 import { generators } from 'openid-client';
 import { getSession } from '@/lib/session';
+import { oidcClient } from '@/lib/auth';
+import { setCookie } from 'cookies-next';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  if (!isInitialized) {
-    res.status(500).json({
-      error: 'oidc_not_initialized',
-    });
-    return;
-  }
   const session = await getSession(req, res);
   // check if redirect_uri param exist
   if (!req.query.redirect_uri) {
@@ -39,28 +33,37 @@ export default async function handler(
       .introspect(access_token)
       .then((value) => {
         res.redirect(redirect_uri);
-        cookies.setCookie('_Z_ACCESS_TOKEN', access_token, {
+        setCookie('_Z_ACCESS_TOKEN', access_token, {
           req,
           res,
           domain: ZEITHROLD_HOST,
           path: '/',
           expires: new Date(value.exp!),
         });
-        return;
       })
       .catch((reason) => {
         session.login = false;
       });
   }
   // here add redirect_uri to session
-  session.redirect_uri = redirect_uri;
+  session.redirect_uri = decodeURIComponent(redirect_uri);
   const code_verifier = generators.codeVerifier();
   const code_challenge = generators.codeChallenge(code_verifier);
+  const state = generators.state();
   session.code_verifier = code_verifier;
+  session.state = state;
+  console.log({
+    stage: 'authorization',
+    code_verifier,
+    code_challenge,
+    state,
+  });
+
   const authZUrl = oidcClient.authorizationUrl({
     scope: 'openid email profile',
     code_challenge,
     code_challenge_method: 'S256',
+    state,
   });
   res.redirect(authZUrl);
 }
