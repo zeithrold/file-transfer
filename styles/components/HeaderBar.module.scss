@@ -1,0 +1,25 @@
+.headerBar {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0px 10px 15px -3px rgba($color: black, $alpha: 0.1);
+    .headerText {
+        font-size: 15px;
+    }
+    .headerLink {
+        @extend .headerText;
+        color: white;
+        text-decoration: underline;
+    }
+}
+
+.cloudHeaderBar {
+    @extend .headerBar;
+}
+
+.betaHeaderBar {
+    @extend .headerBar;
+    background-color: #990000;
+}

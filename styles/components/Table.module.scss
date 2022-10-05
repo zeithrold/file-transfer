@@ -1,0 +1,18 @@
+.tableContainer {
+  overflow-x: scroll;
+  table.table {
+    border-collapse: collapse;
+    padding: 8px;
+    width: 100%;
+    tr.tableRow th {
+      border-bottom: 1px solid #a0a0a0;
+    }
+    tr.tableRow td {
+      border-bottom: 1px solid #cecece;
+    }
+    td.tableCell,
+    th.tableCell {
+      padding: 8px;
+    }
+  }
+}
