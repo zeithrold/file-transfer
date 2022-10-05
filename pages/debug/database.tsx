@@ -117,7 +117,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         expire_at: plan.expire_at!.toISOString(),
       };
     });
-    console.log(planData);
     serverSideProps.props.planData = planData;
   } catch (e) {
     console.log(e);

@@ -5,7 +5,7 @@ export class File extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column()
+  @Column('uuid')
   openid?: string;
 
   /**

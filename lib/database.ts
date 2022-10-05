@@ -2,7 +2,6 @@ import 'reflect-metadata';
 
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { File, Plan, PlanTemplate } from './entity';
-
 const DATASOURCE_OPTIONS: DataSourceOptions = {
   type: 'mysql',
   host: process.env.ZEITHROLD_MYSQL_HOST,
@@ -17,5 +16,4 @@ const DATASOURCE_OPTIONS: DataSourceOptions = {
 };
 
 const AppDataSource = await new DataSource(DATASOURCE_OPTIONS).initialize();
-
 export { AppDataSource };

@@ -10,7 +10,7 @@ export class Plan extends BaseEntity {
 
   @Column()
   plan_id?: string;
-
+  
   @Column('timestamp')
   expire_at?: Date;
 }
