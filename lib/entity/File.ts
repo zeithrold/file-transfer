@@ -21,7 +21,7 @@ export class File extends BaseEntity {
   uploaded_at?: Date;
 
   @Column()
-  filename?: string;
+  name?: string;
 
   /**
    * Count as seconds.
@@ -35,8 +35,8 @@ export class File extends BaseEntity {
   @Column()
   hash?: string;
 
-  @Column()
-  file_uuid?: string;
+  @Column('uuid')
+  file_id?: string;
 
   @Column()
   status?: 'active' | 'deleted' | 'inactive';

@@ -117,7 +117,7 @@ const MyPage: NextPage<MyPageProps> = ({
                     {files!.map((row) => (
                       <tr key={row.code!} className={tableStyles.tableRow}>
                         <td className={tableStyles.tableCell}>
-                          <b>{row.filename}</b>
+                          <b>{row.name}</b>
                         </td>
                         <td className={tableStyles.tableCell}>{row.code}</td>
                         <td className={tableStyles.tableCell}>

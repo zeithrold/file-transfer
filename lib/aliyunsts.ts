@@ -1,21 +1,15 @@
 import AliyunSTS from '@alicloud/pop-core';
-import { logWithDate } from './logging';
 
-let stsClient: AliyunSTS;
+const stsClient = new AliyunSTS({
+  accessKeyId: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEY_ID!,
+  accessKeySecret: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEY_SECRET!,
+  endpoint: 'https://sts.cn-beijing.aliyuncs.com',
+  apiVersion: '2015-04-01',
+});
 
 const STS_ROLE_ARN = 'acs:ram::1516286309654213:role/zsfiletransferrole';
-const OSS_RESOURCE_ROOT = 'acs:oss:*:1516286309654213:zeithrold-file-transfer/';
+const OSS_RESOURCE_ROOT = 'acs:oss:*:1516286309654213:zeithrold-file-transfer';
 type OSSAction = 'oss:GetObject' | 'oss:PutObject';
-
-export function init() {
-  logWithDate('Initializing Aliyun STS Library...');
-  stsClient = new AliyunSTS({
-    accessKeyId: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEYID!,
-    accessKeySecret: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEYSECRET!,
-    endpoint: 'https://sts.cn-beijing.aliyuncs.com',
-    apiVersion: '2015-04-01',
-  });
-}
 
 export interface StsRequestParam {
   RoleArn: string;
@@ -82,6 +76,7 @@ export async function requestForSTSToken({
   const params = buildStsRequestParam({
     RoleArn: STS_ROLE_ARN,
     RoleSessionName: openid,
+    DurationSeconds: 900,
     Policy: {
       Version: '1',
       Statement: [
@@ -93,6 +88,8 @@ export async function requestForSTSToken({
       ],
     },
   });
+  // console.log(params);
+
   try {
     const result: StsResponse = await stsClient.request('AssumeRole', params, {
       method: 'POST',
@@ -102,5 +99,3 @@ export async function requestForSTSToken({
     throw e;
   }
 }
-
-logWithDate('Initialized Aliyun STS Library');

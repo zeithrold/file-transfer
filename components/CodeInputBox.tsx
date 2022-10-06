@@ -6,6 +6,7 @@ export default function CodeInputBox() {
   return (
     <div className={styles.codeInputBox}>
       <input
+        placeholder="输入文件码或双击..."
         className={styles.codeInputElement}
         maxLength={12}
         value={code}
