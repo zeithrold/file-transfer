@@ -7,9 +7,8 @@ import { GetServerSideProps } from 'next';
 import PropsBase from '@/types/PropsBase';
 import React from 'react';
 import WarningIcon from '@mui/icons-material/Warning';
-import { getDataPoint } from '@/lib/datapoints';
+import { getTotalDataPoint } from '@/lib/datapoints';
 import { getUserInfo } from '@/lib/auth';
-import styles from '@/styles/pages/welcome.module.scss';
 
 export interface WelcomeProps extends PropsBase {
   openid: string;
@@ -58,12 +57,19 @@ export default function Welcome({ userinfo }: WelcomeProps) {
           }}
         >
           {buttonClicked ? (
-            <span className={styles.initializeButtonContent}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
               <CircularProgress
-                className={styles.initializeButtonProgressCircle}
+                sx={{
+                  mr: '10px',
+                }}
               />
               创建中...
-            </span>
+            </Box>
           ) : (
             <span>创建您的档案</span>
           )}
@@ -121,7 +127,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     };
   }
-  const datapoint = await getDataPoint(userinfo!.sub);
+  const datapoint = await getTotalDataPoint(userinfo!.sub);
   if (datapoint) {
     return {
       redirect: {

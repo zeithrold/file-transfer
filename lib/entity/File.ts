@@ -11,13 +11,13 @@ export class File extends BaseEntity {
   /**
    * Count as Megabytes.
    */
-  @Column()
+  @Column('double')
   size_megabytes?: number;
 
-  @Column('date')
+  @Column('timestamp')
   created_at?: Date;
 
-  @Column('date')
+  @Column('timestamp')
   uploaded_at?: Date;
 
   @Column()
@@ -28,6 +28,9 @@ export class File extends BaseEntity {
    */
   @Column()
   storage_duration_seconds?: number;
+
+  @Column('timestamp')
+  expires_at?: Date;
 
   @Column()
   hash?: string;
