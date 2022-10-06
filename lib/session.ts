@@ -12,4 +12,7 @@ export const getSession = nextSession({
       client: new Redis(process.env.ZEITHROLD_REDIS_URI!),
     }),
   ),
+  cookie: {
+    httpOnly: false,
+  },
 });
