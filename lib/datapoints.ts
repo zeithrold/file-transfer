@@ -18,10 +18,11 @@ export async function getPlans(
   let errorOccured = false;
   const plans = await planRepository
     .findBy({ openid, expire_at: MoreThan(new Date()) })
-    .catch((err: any) => {
+    .catch(() => {
       errorOccured = true;
-      console.error(err);
+      // console.error(err);
     });
+
   if (errorOccured || !plans) {
     return null;
   }
@@ -36,10 +37,11 @@ export async function getPlans(
         };
       }),
     })
-    .catch((err: any) => {
+    .catch(() => {
       errorOccured = true;
-      console.error(err);
+      // console.error(err);
     });
+
   if (errorOccured || !planTemplates) {
     return null;
   }
