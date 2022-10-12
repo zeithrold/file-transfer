@@ -3,7 +3,7 @@ import { getUserInfo, verifyAccessToken } from '@/lib/auth';
 
 import { AppDataSource } from '@/lib/database';
 import { Plan } from '@/lib/entity';
-import { getDataPoint } from '@/lib/datapoints';
+import { getTotalDataPoint } from '@/lib/datapoints';
 
 // import { getSession } from '@/lib/session';
 
@@ -23,7 +23,7 @@ export default async function handler(
     });
     return;
   }
-  const datapoints = await getDataPoint(userinfo!.sub);
+  const datapoints = await getTotalDataPoint(userinfo!.sub);
   if (datapoints) {
     res.status(400).json({
       error: 'already_initialized',

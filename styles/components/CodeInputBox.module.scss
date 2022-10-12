@@ -1,0 +1,17 @@
+.codeInputBox {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  input.codeInputElement {
+    width: 100%;
+    margin: 12px 0;
+    display: block;
+    font-size: 1.5em;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+    border-color: black;
+    border-width: 3px;
+  }
+}

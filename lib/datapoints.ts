@@ -1,4 +1,4 @@
-import { Plan, PlanTemplate } from './entity';
+import { File as DbFile, Plan, PlanTemplate } from './entity';
 
 import { AppDataSource } from './database';
 import { MoreThan } from 'typeorm';
@@ -9,6 +9,13 @@ export interface PlanQueryResponse {
   description: string;
   expires_at: string;
   datapoints: number;
+}
+
+export function datapoint(
+  size_megabytes: number,
+  storage_duration_seconds: number,
+) {
+  return size_megabytes * (storage_duration_seconds / (60 * 60 * 24));
 }
 
 export async function getPlans(
@@ -53,7 +60,7 @@ export async function getPlans(
       plan_id: planTemplate.plan_id!,
       name: planTemplate.name!,
       description: planTemplate.description!,
-      expires_at: plan!.expire_at!.toLocaleDateString(),
+      expires_at: plan!.expire_at!.toLocaleDateString('zh-CN'),
       datapoints: planTemplate.datapoints!,
     };
   });
@@ -61,7 +68,7 @@ export async function getPlans(
   return result;
 }
 
-export async function getDataPoint(param: PlanQueryResponse[] | string) {
+export async function getTotalDataPoint(param: PlanQueryResponse[] | string) {
   if (typeof param === 'string') {
     const plans = await getPlans(param);
 
@@ -79,4 +86,22 @@ export async function getDataPoint(param: PlanQueryResponse[] | string) {
       return sum + plan.datapoints;
     }, 0);
   }
+}
+
+export async function getUsedDataPoint(openid: string) {
+  const fileRepository = await AppDataSource.getRepository(DbFile);
+  const files = await fileRepository.findBy({
+    openid,
+    expires_at: MoreThan(new Date()),
+    status: 'active',
+  });
+  if (!files) {
+    return 0;
+  }
+  // callculate all datapoints with datapoint()
+  let sum = 0;
+  files.forEach((file) => {
+    sum += datapoint(file.size_megabytes!, file.storage_duration_seconds!);
+  });
+  return sum;
 }

@@ -11,17 +11,17 @@ export class File extends BaseEntity {
   /**
    * Count as Megabytes.
    */
-  @Column()
+  @Column('double')
   size_megabytes?: number;
 
-  @Column('date')
+  @Column('timestamp')
   created_at?: Date;
 
-  @Column('date')
+  @Column('timestamp')
   uploaded_at?: Date;
 
   @Column()
-  filename?: string;
+  name?: string;
 
   /**
    * Count as seconds.
@@ -29,11 +29,14 @@ export class File extends BaseEntity {
   @Column()
   storage_duration_seconds?: number;
 
+  @Column('timestamp')
+  expires_at?: Date;
+
   @Column()
   hash?: string;
 
-  @Column()
-  file_uuid?: string;
+  @Column('uuid')
+  file_id?: string;
 
   @Column()
   status?: 'active' | 'deleted' | 'inactive';
