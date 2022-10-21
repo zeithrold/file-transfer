@@ -1,4 +1,5 @@
 import AliyunSTS from '@alicloud/pop-core';
+import { MD5 } from 'crypto-js';
 
 const stsClient = new AliyunSTS({
   accessKeyId: process.env.ZEITHROLD_ALIYUN_STS_ACCESSKEY_ID!,
@@ -73,9 +74,10 @@ export async function requestForSTSToken({
   action,
   openid,
 }: RequestForSTSTokenParams) {
+  const RoleSessionName = MD5(openid).toString();
   const params = buildStsRequestParam({
     RoleArn: STS_ROLE_ARN,
-    RoleSessionName: openid,
+    RoleSessionName,
     DurationSeconds: 900,
     Policy: {
       Version: '1',

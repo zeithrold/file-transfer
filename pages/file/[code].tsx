@@ -209,11 +209,15 @@ export const getServerSideProps: GetServerSideProps<
   FileDownloadProps
 > = async ({ req, res, query }) => {
   const { code } = query;
-  const [userinfo, fileExists] = await Promise.all([
+  let [userinfo, fileExists] = await Promise.all([
     getUserInfo(req, res),
     checkFileExists(code as string),
   ]);
+  if (!userinfo) {
+    userinfo = null;
+  }
   if (!fileExists) {
+    res.statusCode = 404;
     return {
       props: {
         userinfo,

@@ -4,7 +4,7 @@ import React from 'react';
 import { UserinfoResponse } from 'openid-client';
 
 export interface DefaultPageLayoutProps {
-  userinfo?: UserinfoResponse;
+  userinfo?: UserinfoResponse | null;
   children: any;
 }
 

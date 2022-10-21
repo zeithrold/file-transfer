@@ -1,7 +1,7 @@
 import { UserinfoResponse } from 'openid-client';
 
 interface PropsBase {
-  userinfo?: UserinfoResponse;
+  userinfo?: UserinfoResponse | null;
 }
 
 export default PropsBase;

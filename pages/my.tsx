@@ -141,7 +141,7 @@ const MyPage: NextPage<MyPageProps> = ({
                             : `${row.storage_duration_seconds / 60 / 60} 小时`}
                         </td>
                         <td className={tableStyles.tableCell}>
-                          {`${row.dataPoint} DP`}
+                          {`${row.dataPoint.toFixed(2)} DP`}
                         </td>
                       </tr>
                     ))}
@@ -188,7 +188,6 @@ const getServerSideProps: GetServerSideProps<MyPageProps> = async ({
         destination:
           '/api/v1/auth/login?redirect_uri=' +
           encodeURIComponent(process.env.ZEITHROLD_ENDPOINT! + '/my'),
-
         permanent: false,
       },
     };

@@ -20,6 +20,7 @@
     "cookies-next": "^2.1.1",
     "crypto-js": "^4.1.1",
     "express-session": "^1.17.3",
+    "hash-wasm": "^4.9.0",
     "ioredis": "^5.2.3",
     "mysql": "^2.18.1",
     "next": "12.3.1",

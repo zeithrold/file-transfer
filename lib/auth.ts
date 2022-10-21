@@ -1,7 +1,7 @@
-import { Issuer, UnknownObject, UserinfoResponse } from 'openid-client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import type { NextRequest, NextResponse } from '@/types';
 
+import { Issuer } from 'openid-client';
 import { getCookie } from 'cookies-next';
 import { getSession } from './session';
 import { logWithDate } from './logging';
@@ -34,7 +34,7 @@ export const getUserInfo = async (req: NextRequest, res: NextResponse) => {
       logWithDate(e);
     }
   }
-  return undefined;
+  return null;
 };
 
 export const verifyAccessToken = async (
@@ -50,8 +50,7 @@ export const verifyAccessToken = async (
     error = true;
     return error;
   }
-  let userinfo: UserinfoResponse<UnknownObject, UnknownObject> | undefined =
-    await getUserInfo(req, res);
+  let userinfo = await getUserInfo(req, res);
   if (!userinfo) {
     res.status(400).json({
       error: 'invalid_access_token',

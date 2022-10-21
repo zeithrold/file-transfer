@@ -1,12 +1,17 @@
 import React from 'react';
 import styles from '@/styles/components/CodeInputBox.module.scss';
-export default function CodeInputBox() {
+
+export interface CodeInputBoxProps {
+  onDoubleClick?: React.MouseEventHandler<HTMLDivElement>;
+}
+
+export default function CodeInputBox({ onDoubleClick }: CodeInputBoxProps) {
   const [code, setCode] = React.useState('');
 
   return (
-    <div className={styles.codeInputBox}>
+    <div className={styles.codeInputBox} onDoubleClick={onDoubleClick}>
       <input
-        placeholder="输入文件码或双击..."
+        // placeholder="输入文件码或双击..."
         className={styles.codeInputElement}
         maxLength={12}
         value={code}

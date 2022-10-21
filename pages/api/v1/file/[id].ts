@@ -24,6 +24,7 @@ export default async function handler(
       return;
     }
     const filePath = '/' + [file.file_id!, file.hash!, file.name!].join('/');
+    console.log(file.openid!);
     const stsToken = (
       await requestForSTSToken({
         filePath,
