@@ -4,7 +4,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { File, Plan, PlanTemplate } from './entity';
 
 const DATASOURCE_OPTIONS: DataSourceOptions = {
-  type: 'mysql',
+  type: 'mariadb',
   host: process.env.ZEITHROLD_MYSQL_HOST,
   username: process.env.ZEITHROLD_MYSQL_USERNAME,
   password: process.env.ZEITHROLD_MYSQL_PASSWORD,

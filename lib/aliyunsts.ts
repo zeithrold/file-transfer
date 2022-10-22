@@ -90,7 +90,6 @@ export async function requestForSTSToken({
       ],
     },
   });
-  // console.log(params);
 
   try {
     const result: StsResponse = await stsClient.request('AssumeRole', params, {

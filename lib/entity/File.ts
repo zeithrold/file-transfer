@@ -39,7 +39,7 @@ export class File extends BaseEntity {
   file_id?: string;
 
   @Column()
-  status?: 'active' | 'deleted' | 'inactive';
+  status?: 'active' | 'deleted' | 'inactive' | 'created' | 'uploaded';
 
   @Column({
     length: 16,

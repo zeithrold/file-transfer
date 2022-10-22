@@ -18,12 +18,6 @@ export default function Welcome({ userinfo }: WelcomeProps) {
   const [buttonClicked, setButtonClicked] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
   const [errorDetail, setErrorDetail] = React.useState('');
-  React.useEffect(() => {
-    console.log({
-      failed,
-      errorDetail,
-    });
-  }, [failed, errorDetail]);
   return (
     <ContainerPageLayout userinfo={userinfo}>
       <div>

@@ -30,7 +30,7 @@
     "react-dom": "18.2.0",
     "react-file-icon": "^1.2.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.10",
+    "typeorm": "^0.3.8",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

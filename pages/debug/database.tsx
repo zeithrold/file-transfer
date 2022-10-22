@@ -119,7 +119,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     });
     serverSideProps.props.planData = planData;
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
   const logoutUrl = '/api/v1/auth/logout';
   serverSideProps.props.logoutUrl = logoutUrl;

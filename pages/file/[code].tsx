@@ -106,6 +106,7 @@ export default function FileDownload({
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
+                  mt: 1,
                 }}
               >
                 <CircularProgress
@@ -124,7 +125,7 @@ export default function FileDownload({
                     mr: 1,
                   }}
                 />
-                点击下载
+                下载文件
               </>
             )}
           </Button>

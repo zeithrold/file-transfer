@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { TokenSet } from 'openid-client';
 import { ZEITHROLD_HOST } from '@/lib/constants';
 import { getSession } from '@/lib/session';
+import { getTotalDataPoint } from '@/lib/datapoints';
 import { oidcClient } from '@/lib/auth';
 import { setCookie } from 'cookies-next';
 
@@ -62,7 +63,14 @@ export default async function handler(
     httpOnly: true,
     expires: new Date(tokenSet!.expires_at! * 1000),
   });
+  const userinfo = await oidcClient.userinfo(tokenSet);
+  const dataPoints = await getTotalDataPoint(userinfo.sub);
+  if (!dataPoints) {
+    res.redirect('/welcome');
+    return;
+  }
   res.redirect(session.redirect_uri);
+  return;
 }
 
 export const config = {

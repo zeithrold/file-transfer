@@ -10,6 +10,19 @@ const nextConfig = {
   images: {
     domains: ['gravatar.loli.net'],
   },
+  headers: async () => {
+    return [
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: process.env.ZEITHROLD_ALIYUN_OSS_ENDPOINT,
+          },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

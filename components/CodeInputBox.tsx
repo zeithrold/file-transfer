@@ -3,9 +3,13 @@ import styles from '@/styles/components/CodeInputBox.module.scss';
 
 export interface CodeInputBoxProps {
   onDoubleClick?: React.MouseEventHandler<HTMLDivElement>;
+  disabled?: boolean;
 }
 
-export default function CodeInputBox({ onDoubleClick }: CodeInputBoxProps) {
+export default function CodeInputBox({
+  onDoubleClick,
+  disabled,
+}: CodeInputBoxProps) {
   const [code, setCode] = React.useState('');
 
   return (
@@ -15,6 +19,7 @@ export default function CodeInputBox({ onDoubleClick }: CodeInputBoxProps) {
         className={styles.codeInputElement}
         maxLength={12}
         value={code}
+        disabled={disabled}
         onKeyDown={(e) => {
           if (e.key == 'Enter') {
             window.location.href = '/file/' + code;

@@ -72,7 +72,6 @@ export async function getTotalDataPoint(param: PlanQueryResponse[] | string) {
   if (typeof param === 'string') {
     const plans = await getPlans(param);
 
-    // console.log(plans);
     if (!plans) {
       return 0;
     }

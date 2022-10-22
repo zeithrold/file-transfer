@@ -126,17 +126,11 @@ export async function getFileList(
   openid: string,
 ): Promise<FileQueryResponse[]> {
   const fileRepository = await AppDataSource.getRepository(DbFile);
-  console.log(openid);
-
-  const newquery = await fileRepository.find();
-  console.log(newquery);
-
   const queryResult = await fileRepository.findBy({
     openid,
     status: 'active',
     expires_at: MoreThan(new Date()),
   });
-  console.log(queryResult);
   return queryResult.map((file) => {
     return {
       size_megabytes: file.size_megabytes!,
