@@ -24,7 +24,9 @@ env:
 
 jobs:
   build:
-
+    strategy:
+      matrix:
+        registry: [ghcr.io, "${{secrets.ZEITHROLD_ALIYUN_ACR_REGISTRY}}"]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -73,13 +75,21 @@ jobs:
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
+      - name: Log into registry ghcr.io
+        if: ${{ github.event_name != 'pull_request' && matrix.registry == 'ghcr.io' }}
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log into registry ghcr.io
+        if: ${{ matrix.registry == secrets.ZEITHROLD_ALIYUN_ACR_REGISTRY }}
+        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        with:
+          registry: ${{ secrets.ZEITHROLD_ALIYUN_ACR_REGISTRY }}
+          username: ${{ secrets.ZEITHROLD_ALIYUN_ACR_USERNAME }}
+          password: ${{ secrets.ZEITHROLD_ALIYUN_ACR_PASSWORD }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
