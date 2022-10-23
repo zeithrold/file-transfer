@@ -16,15 +16,15 @@ on:
     branches: [ "main" ]
 
 env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
 
 jobs:
   build:
-
+    strategy:
+      matrix:
+        registry: [ghcr.io, registry.cn-beijing.aliyuncs.com]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -55,10 +55,7 @@ jobs:
       #  uses: sigstore/cosign-installer@7e0881f8fe90b25e305bbf0309761e9314607e25
       #  with:
       #    cosign-release: 'v1.9.0'
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
+      
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
@@ -76,13 +73,21 @@ jobs:
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
+      - name: Log into registry ghcr.io
+        if: ${{ github.event_name != 'pull_request' && matrix.registry == 'ghcr.io' }}
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log into registry ghcr.io
+        if: ${{ matrix.registry == 'registry.cn-beijing.aliyuncs.com' }}
+        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        with:
+          registry: ${{ secrets.ZEITHROLD_ALIYUN_ACR_REGISTRY }}
+          username: ${{ secrets.ZEITHROLD_ALIYUN_ACR_USERNAME }}
+          password: ${{ secrets.ZEITHROLD_ALIYUN_ACR_PASSWORD }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -90,7 +95,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ matrix.registry }}/${{ env.IMAGE_NAME }}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -121,4 +126,3 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/amd64,linux/arm64
