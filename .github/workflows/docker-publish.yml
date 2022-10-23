@@ -95,7 +95,6 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: source
           build-args: |
             ZEITHROLD_MYSQL_HOST=172.17.0.1
             ZEITHROLD_MYSQL_USERNAME=root
