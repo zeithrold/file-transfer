@@ -81,7 +81,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Log into registry ghcr.io
+      - name: Log into registry registry.cn-beijing.aliyuncs.com
         if: ${{ matrix.registry == 'registry.cn-beijing.aliyuncs.com' }}
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
