@@ -29,6 +29,7 @@ interface HomeProps extends PropsBase {
   totalDataPoint?: number;
   ossRegion?: string;
   ossBucket?: string;
+  ossEndpoint?: string;
 }
 
 const hashChunk = async (chunk: Blob, wasmHasher: IHasher) => {
@@ -51,6 +52,7 @@ const Home: NextPage<HomeProps> = ({
   totalDataPoint,
   ossBucket,
   ossRegion,
+  ossEndpoint,
 }) => {
   const fileRef =
     React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
@@ -320,6 +322,7 @@ const Home: NextPage<HomeProps> = ({
                         accessKeySecret: data.token.AccessKeySecret,
                         stsToken: data.token.SecurityToken,
                         bucket: ossBucket,
+                        endpoint: ossEndpoint,
                       };
                       const ossClient = new OSS(options);
                       setFileLoading(true);
@@ -422,6 +425,7 @@ const getServerSideProps: GetServerSideProps<HomeProps> = async ({
       totalDataPoint,
       ossBucket: process.env.ZEITHROLD_ALIYUN_OSS_BUCKET!,
       ossRegion: process.env.ZEITHROLD_ALIYUN_OSS_REGION!,
+      ossEndpoint: process.env.ZEITHROLD_ALIYUN_OSS_ENDPOINT!,
     },
   };
 };
