@@ -11,7 +11,7 @@ export default async function handler(
   // deleteCookie('_Z_ACCESS_TOKEN', { req, res });
   res.setHeader(
     'Set-Cookie',
-    `_Z_ACCESS_TOKEN=""; Path=/; Domain= .${
+    `_Z_ACCESS_TOKEN=""; Path=/; Domain=.${
       new URL(process.env.ZEITHROLD_ENDPOINT!).host
     };`,
   );
