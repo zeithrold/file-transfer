@@ -47,21 +47,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
-      - name: Checkout Sub-Store backend repository
-        uses: actions/checkout@v3
-        with:
-          repository: sub-store-org/Sub-Store
-          path: source
-      
-      - name: Checkout Sub-Store frontend repository
-        uses: actions/checkout@v3
-        with:
-          repository: sub-store-org/Sub-Store-Front-End
-          path: source/web
-    
-      - name: Move Dockerfile to source directory
-        run: mv Dockerfile source/
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
