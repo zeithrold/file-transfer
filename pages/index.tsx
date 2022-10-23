@@ -50,9 +50,8 @@ const Home: NextPage<HomeProps> = ({
   userinfo,
   usedDataPoint,
   totalDataPoint,
-  ossBucket,
   ossRegion,
-  ossEndpoint,
+  ossBucket,
 }) => {
   const fileRef =
     React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
@@ -322,7 +321,8 @@ const Home: NextPage<HomeProps> = ({
                         accessKeySecret: data.token.AccessKeySecret,
                         stsToken: data.token.SecurityToken,
                         bucket: ossBucket,
-                        endpoint: ossEndpoint,
+                        security: true,
+                        // endpoint: ossEndpoint,
                       };
                       const ossClient = new OSS(options);
                       setFileLoading(true);

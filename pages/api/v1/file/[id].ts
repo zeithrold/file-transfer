@@ -42,6 +42,7 @@ export default async function handler(
       accessKeyId: stsToken.AccessKeyId,
       accessKeySecret: stsToken.AccessKeySecret,
       stsToken: stsToken.SecurityToken,
+      secure: true,
     });
 
     // check if file exist in oss
@@ -103,6 +104,8 @@ export default async function handler(
       bucket: process.env.ZEITHROLD_ALIYUN_OSS_BUCKET!,
       accessKeyId: process.env.ZEITHROLD_ALIYUN_OSS_ACCESSKEY_ID!,
       accessKeySecret: process.env.ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET!,
+      secure: true,
+      // endpoint: process.env.ZEITHROLD_ALIYUN_OSS_ENDPOINT!,
     });
     try {
       await ossClient.head(filePath);
