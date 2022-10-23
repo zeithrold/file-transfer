@@ -14,10 +14,10 @@ export class File extends BaseEntity {
   @Column('double')
   size_megabytes?: number;
 
-  @Column('timestamp')
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at?: Date;
 
-  @Column('timestamp')
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   uploaded_at?: Date;
 
   @Column()
@@ -29,7 +29,7 @@ export class File extends BaseEntity {
   @Column()
   storage_duration_seconds?: number;
 
-  @Column('timestamp')
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   expires_at?: Date;
 
   @Column()
