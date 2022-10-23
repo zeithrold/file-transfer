@@ -96,12 +96,12 @@ jobs:
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           build-args: |
-            ZEITHROLD_MYSQL_HOST=172.17.0.1
+            ZEITHROLD_MYSQL_HOST=localhost
             ZEITHROLD_MYSQL_USERNAME=root
             ZEITHROLD_MYSQL_PASSWORD=1
             ZEITHROLD_MYSQL_PORT=3306
             ZEITHROLD_MYSQL_DATABASE=file_transfer
-            ZEITHROLD_REDIS_URI=redis://172.17.0.1
+            ZEITHROLD_REDIS_URI=redis://localhost
             ZEITHROLD_OIDC_ISSUER=https://auth.zeithrold.com
             ZEITHROLD_OIDC_CLIENT_ID=${{ secrets.ZEITHROLD_OIDC_CLIENT_ID }}
             ZEITHROLD_OIDC_CLIENT_SECERT=${{ secrets.ZEITHROLD_OIDC_CLIENT_SECERT }}
