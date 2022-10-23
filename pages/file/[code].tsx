@@ -84,8 +84,7 @@ export default function FileDownload({
                 })
                 .then((data) => {
                   if (data.url) {
-                    window.open(data.url);
-                    window.location.href = '/';
+                    window.location.href = data.url;
                   }
                 })
                 .catch(() => {
