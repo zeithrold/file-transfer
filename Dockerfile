@@ -19,7 +19,7 @@ ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_ID
 ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET
 
 
-RUN npm install --global yarn
+RUN npm install --force --global yarn
 
 # Install dependencies
 COPY . /workspace
