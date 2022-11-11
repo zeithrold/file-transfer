@@ -20,7 +20,7 @@ ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET
 
 
 # Install yarn
-RUN apk add --no-cache yarn
+RUN npm install -g yarn
 
 # Install dependencies
 COPY . /workspace
