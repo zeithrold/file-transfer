@@ -20,13 +20,11 @@ ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET
 
 # RUN npm install --global yarn
 
-RUN npm install --global nrm
-RUN nrm use npmMirror
-
 # Install dependencies
 COPY . /workspace
 WORKDIR /workspace
-RUN yarn install
+RUN yarn install --network-timeout 600000
+
 RUN yarn build
 
 EXPOSE 3000
