@@ -122,7 +122,6 @@ jobs:
             ZEITHROLD_OIDC_ISSUER=https://auth.zeithrold.com
             ZEITHROLD_OIDC_CLIENT_ID=${{ secrets.ZEITHROLD_OIDC_CLIENT_ID }}
             ZEITHROLD_OIDC_CLIENT_SECERT=${{ secrets.ZEITHROLD_OIDC_CLIENT_SECERT }}
-            ZEITHROLD_ENDPOINT=https://file.zeithrold.cloud
             ZEITHROLD_ALIYUN_STS_ACCESSKEY_ID=${{ secrets.ZEITHROLD_ALIYUN_STS_ACCESSKEY_ID }}
             ZEITHROLD_ALIYUN_STS_ACCESSKEY_SECRET=${{ secrets.ZEITHROLD_ALIYUN_STS_ACCESSKEY_SECRET }}
             ZEITHROLD_ALIYUN_OSS_REGION=${{ secrets.ZEITHROLD_ALIYUN_OSS_REGION }}
@@ -130,6 +129,7 @@ jobs:
             ZEITHROLD_ALIYUN_OSS_ENDPOINT=${{ secrets.ZEITHROLD_ALIYUN_OSS_ENDPOINT }}
             ZEITHROLD_ALIYUN_OSS_ACCESSKEY_ID=${{ secrets.ZEITHROLD_ALIYUN_OSS_ACCESSKEY_ID }}
             ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET=${{ secrets.ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET }}
+            ZEITHROLD_ENDPOINT=https://file.zeithrold.com
 
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
