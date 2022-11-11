@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM alpine
 
 ARG ZEITHROLD_MYSQL_HOST
 ARG ZEITHROLD_MYSQL_USERNAME
@@ -18,13 +18,16 @@ ARG ZEITHROLD_ALIYUN_OSS_ENDPOINT
 ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_ID
 ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET
 
+RUN apk add nodejs npm
+RUN npm install --global yarn
+
 # Install dependencies
 COPY . /workspace
 WORKDIR /workspace
-RUN /usr/local/bin/yarn install
-RUN /usr/local/bin/yarn build
+RUN yarn install
+RUN yarn build
 
 EXPOSE 3000
 
 # Run the app
-ENTRYPOINT [ "/usr/local/bin/yarn", "start" ]
+ENTRYPOINT [ "yarn", "start" ]
