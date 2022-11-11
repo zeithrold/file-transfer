@@ -24,7 +24,7 @@ jobs:
   build:
     strategy:
       matrix:
-        registry: [ghcr.io, registry.cn-beijing.aliyuncs.com]
+        registry: [ghcr.io, registry.cn-beijing.aliyuncs.com, swr.cn-north-4.myhuaweicloud.com]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -88,6 +88,14 @@ jobs:
           registry: ${{ secrets.ZEITHROLD_ALIYUN_ACR_REGISTRY }}
           username: ${{ secrets.ZEITHROLD_ALIYUN_ACR_USERNAME }}
           password: ${{ secrets.ZEITHROLD_ALIYUN_ACR_PASSWORD }}
+      
+      - name: Log into registry Huawei Cloud
+        if: ${{ github.event_name != 'pull_request' && matrix.registry == 'swr.cn-north-4.myhuaweicloud.com' }}
+        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        with:
+          registry: swr.cn-north-4.myhuaweicloud.com
+          username: cn-north-4@${{ secrets.ZEITHROLD_HUAWEI_ACCESSKEY_ID }}
+          password: ${{ secrets.ZEITHROLD_HUAWEI_ACCESSKEY_SECRET }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
