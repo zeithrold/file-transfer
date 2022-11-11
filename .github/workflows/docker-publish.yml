@@ -88,7 +88,7 @@ jobs:
         if: ${{ matrix.registry == 'registry.cn-beijing.aliyuncs.com' }}
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-          registry: ${{ secrets.ZEITHROLD_ALIYUN_ACR_REGISTRY }}
+          registry: registry.cn-beijing.aliyuncs.com
           username: ${{ secrets.ZEITHROLD_ALIYUN_ACR_USERNAME }}
           password: ${{ secrets.ZEITHROLD_ALIYUN_ACR_PASSWORD }}
       
