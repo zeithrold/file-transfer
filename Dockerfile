@@ -18,16 +18,13 @@ ARG ZEITHROLD_ALIYUN_OSS_ENDPOINT
 ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_ID
 ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET
 
-
-RUN npm install --force --global yarn
-
 # Install dependencies
 COPY . /workspace
 WORKDIR /workspace
-RUN yarn install
-RUN yarn build
+RUN /usr/local/bin/yarn install
+RUN /usr/local/bin/yarn build
 
 EXPOSE 3000
 
 # Run the app
-ENTRYPOINT [ "yarn", "start" ]
+ENTRYPOINT [ "/usr/local/bin/yarn", "start" ]
