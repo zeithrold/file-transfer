@@ -20,6 +20,9 @@ ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET
 
 # RUN npm install --global yarn
 
+RUN npm install --global nrm
+RUN nrm use npmMirror
+
 # Install dependencies
 COPY . /workspace
 WORKDIR /workspace
