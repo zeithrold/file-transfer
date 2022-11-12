@@ -1,3 +1,4 @@
+import { getTotalDataPoint, getUsedDataPoint } from '@/lib/datapoints';
 import { getUserInfo, verifyAccessToken } from '@/lib/auth';
 
 import { AppDataSource } from '@/lib/database';
@@ -113,6 +114,19 @@ const handler: NextApiHandler = async (req, res) => {
   // which is splited each 4 characters with a dash
   // and is unique
   let isFileCodeDuplicate: boolean = false;
+  const totalDatapoints = await getTotalDataPoint(requestBody.openid);
+  const usedDatapoints = await getUsedDataPoint(requestBody.openid);
+  if (
+    usedDatapoints +
+      requestBody.size_megabytes /
+        (requestBody.duration_seconds / 60 / 60 / 24) >
+    totalDatapoints
+  ) {
+    res.status(400).json({
+      error: 'datapoint_not_enough',
+    });
+    return;
+  }
   do {
     fileCode = '';
     isFileCodeDuplicate = false;

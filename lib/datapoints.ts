@@ -89,10 +89,24 @@ export async function getTotalDataPoint(param: PlanQueryResponse[] | string) {
 
 export async function getUsedDataPoint(openid: string) {
   const fileRepository = await AppDataSource.getRepository(DbFile);
-  const files = await fileRepository.findBy({
-    openid,
-    expires_at: MoreThan(new Date()),
-    status: 'active',
+  let files = await fileRepository.find({
+    where: [
+      {
+        openid,
+        status: 'created',
+        created_at: MoreThan(new Date(Date.now() - 60 * 60 * 1000)),
+      },
+      {
+        openid,
+        status: 'uploaded',
+        created_at: MoreThan(new Date(Date.now() - 60 * 60 * 1000)),
+      },
+      {
+        openid,
+        status: 'active',
+        expires_at: MoreThan(new Date()),
+      },
+    ],
   });
   if (!files) {
     return 0;
