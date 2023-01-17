@@ -92,7 +92,18 @@ export const fileTypes: {
     'vob',
     'wmv',
   ],
-  archive: ['7z', 'arj', 'deb', 'pkg', 'rar', 'rpm', 'gz', 'tar', 'z', 'zip'],
+  compressed: [
+    '7z',
+    'arj',
+    'deb',
+    'pkg',
+    'rar',
+    'rpm',
+    'gz',
+    'tar',
+    'z',
+    'zip',
+  ],
 };
 
 export interface FileQueryResponse {

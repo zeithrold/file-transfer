@@ -73,7 +73,7 @@ const Home: NextPage<HomeProps> = ({
   const [progress, setProgress] = React.useState(0);
   const [fileDataPoint, setFileDataPoint] = React.useState(0);
   React.useEffect(() => {
-    if (fileLoading) {
+    if (fileLoading && fileName) {
       let result: {
         extension: string;
         type?: string;

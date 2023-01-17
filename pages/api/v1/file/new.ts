@@ -114,8 +114,8 @@ const handler: NextApiHandler = async (req, res) => {
   // which is splited each 4 characters with a dash
   // and is unique
   let isFileCodeDuplicate: boolean = false;
-  const totalDatapoints = await getTotalDataPoint(requestBody.openid);
-  const usedDatapoints = await getUsedDataPoint(requestBody.openid);
+  const totalDatapoints = await getTotalDataPoint(userinfo?.sub!);
+  const usedDatapoints = await getUsedDataPoint(userinfo?.sub!);
   if (
     usedDatapoints +
       requestBody.size_megabytes /
