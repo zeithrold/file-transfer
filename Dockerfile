@@ -1,3 +1,9 @@
+FROM node:18-alpine as dependencies
+
+WORKDIR /workspace
+COPY package.json /workspace/
+RUN yarn install
+
 FROM node:18-alpine
 
 ARG ZEITHROLD_MYSQL_HOST
@@ -18,12 +24,9 @@ ARG ZEITHROLD_ALIYUN_OSS_ENDPOINT
 ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_ID
 ARG ZEITHROLD_ALIYUN_OSS_ACCESSKEY_SECRET
 
-# RUN npm install --global yarn
-
-# Install dependencies
-COPY . /workspace
+COPY --from=dependencies /workspace /workspace
 WORKDIR /workspace
-RUN yarn install --network-timeout 600000
+COPY . /workspace/
 
 RUN yarn build
 
