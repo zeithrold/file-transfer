@@ -2,7 +2,7 @@ FROM node:18-alpine as dependencies
 
 WORKDIR /workspace
 COPY package.json /workspace/
-RUN yarn install
+RUN yarn install --network-timeout 3600000
 
 FROM node:18-alpine
 
