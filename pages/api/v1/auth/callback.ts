@@ -47,6 +47,7 @@ export default async function handler(
       { code_verifier, scope: 'openid profile email', state },
     );
   } catch (e) {
+    console.log(e);
     res.status(400).json({
       error: 'failed_to_authorize',
       reason: e,
