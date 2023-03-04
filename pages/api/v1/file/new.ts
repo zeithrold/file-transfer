@@ -3,6 +3,7 @@ import { getUserInfo, verifyAccessToken } from '@/lib/auth';
 
 import { AppDataSource } from '@/lib/database';
 import { File as DbFile } from '@/lib/entity/File';
+import { DurationSeconds } from '@/types/DurationSeconds';
 import { NextApiHandler } from 'next';
 import { randomUUID } from 'crypto';
 import { requestForSTSToken } from '@/lib/aliyunsts';
@@ -116,10 +117,19 @@ const handler: NextApiHandler = async (req, res) => {
   let isFileCodeDuplicate: boolean = false;
   const totalDatapoints = await getTotalDataPoint(userinfo?.sub!);
   const usedDatapoints = await getUsedDataPoint(userinfo?.sub!);
+  console.log({
+    totalDatapoints,
+    usedDatapoints,
+  });
+
+  console.log({
+    size: requestBody.size_megabytes,
+    time: requestBody.duration_seconds,
+  });
   if (
     usedDatapoints +
-      requestBody.size_megabytes /
-        (requestBody.duration_seconds / 60 / 60 / 24) >
+      (requestBody.size_megabytes * requestBody.duration_seconds) /
+        DurationSeconds.OneDay >
     totalDatapoints
   ) {
     res.status(400).json({
